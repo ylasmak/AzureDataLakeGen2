@@ -1,0 +1,78 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ylasmak\\source\\repos\\Poc_PIM_ADLS\\Poc_PIM_ADLS\\Poc_PIM_ADLS.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ylasmak\\source\\repos\\Poc_PIM_ADLS\\Poc_PIM_ADLS\\Poc_PIM_ADLS.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ylasmak\\source\\repos\\Poc_PIM_ADLS\\Poc_PIM_ADLS\\Poc_PIM_ADLS.csproj",
+        "projectName": "Poc_PIM_ADLS",
+        "projectPath": "C:\\Users\\ylasmak\\source\\repos\\Poc_PIM_ADLS\\Poc_PIM_ADLS\\Poc_PIM_ADLS.csproj",
+        "packagesPath": "C:\\Users\\ylasmak\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ylasmak\\source\\repos\\Poc_PIM_ADLS\\Poc_PIM_ADLS\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ylasmak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://10.78.120.250/DefaultCollection/_packaging/Massar_Package/nuget/v3/index.json": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.1.1, )"
+            },
+            "Azure.Storage.Files.DataLake": {
+              "target": "Package",
+              "version": "[12.2.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
