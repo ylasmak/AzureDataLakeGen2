@@ -36,9 +36,9 @@ namespace Poc_PIM_ADLS.Services
         {
             var eventData = DynamicToObject<BlobCreatedData>(@event.Data);
 
-            if (eventData.ContentLength > 0)
+            if (eventData.ContentLength > 0 | eventData.Api == "RenameFile")
             {
-                var url = new Uri(eventData.Url);
+                var url = new Uri(!string.IsNullOrEmpty(eventData.Url) ? eventData.Url : eventData.DestinationUrl);
                 var localPath = url.LocalPath;
                 var fileName = Path.GetFileName(localPath);
                 var folderPath = Path.GetDirectoryName(localPath).Split(Path.DirectorySeparatorChar);
@@ -62,6 +62,8 @@ namespace Poc_PIM_ADLS.Services
                 var data = await _dataLakeServiceClientRepository.DownloadJsonData(fileStream, directoryPath, fileName);
 
                 //do something
+                //....
+                //End do something
 
                 var id = "out_product" + "_" + Guid.NewGuid().ToString();
                 await _dataLakeServiceClientRepository.UploadJsonData("outputfs", "output", data.ToString(), id);
@@ -84,7 +86,7 @@ namespace Poc_PIM_ADLS.Services
 
         private T DynamicToObject<T>(dynamic dynamic) where T : class
         {
-            return JsonConvert.DeserializeObject<T>(dynamic.ToString());
+            return JsonConvert.DeserializeObject<T>(dynamic.ToString()) as T;
         }
     }
 }

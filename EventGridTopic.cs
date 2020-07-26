@@ -34,6 +34,8 @@ namespace Poc_PIM_ADLS
         public string Url { get; set; }
         public string Sequencer { get; set; }   
 
+        public string DestinationUrl { get; set; }
+
     }
 
     public class SubscriptionValidationEventData
@@ -49,6 +51,17 @@ namespace Poc_PIM_ADLS
     {
         public static readonly string EventTypeBlobCreated = "Microsoft.Storage.BlobCreated";
         public static readonly string EventSubscriptionValidation = "Microsoft.EventGrid.SubscriptionValidationEvent";
+        public static readonly string MicrosoftTypeBlobRenamed ="Microsoft.Storage.BlobRenamed";
+    }
+
+    public class Utils
+    {
+        public static bool IsNewProduct(string eventType)
+        {
+            if (eventType.Equals(Const.EventTypeBlobCreated) | eventType.Equals(Const.MicrosoftTypeBlobRenamed)) return true;
+            return false;
+
+        }
     }
 
 

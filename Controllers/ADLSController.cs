@@ -47,7 +47,7 @@ namespace Poc_PIM_ADLS.Controllers
             
             foreach(var item in @event)
             {
-                if (item.EventType.Equals(Const.EventTypeBlobCreated))
+                if (Utils.IsNewProduct(item.EventType))
                 {
                    await _dataLakeServiceClient.HandleEventTypeBlobCreated(item);
                 }
