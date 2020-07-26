@@ -49,12 +49,13 @@ namespace Poc_PIM_ADLS.Controllers
             {
                 if (item.EventType.Equals(Const.EventTypeBlobCreated))
                 {
-                    await _dataLakeServiceClient.HandleEventTypeBlobCreated(item);
+                   await _dataLakeServiceClient.HandleEventTypeBlobCreated(item);
                 }
 
                 if (item.EventType.Equals(Const.EventSubscriptionValidation))
                 {
-                    await _dataLakeServiceClient.HandleEventSubscriptionValidation(item);
+                    var result =await _dataLakeServiceClient.HandleEventSubscriptionValidation(item);
+                    return Ok(result);
                 }
             }
 

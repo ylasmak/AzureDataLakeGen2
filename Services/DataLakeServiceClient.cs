@@ -35,43 +35,48 @@ namespace Poc_PIM_ADLS.Services
         public async Task HandleEventTypeBlobCreated(EventGridTopic @event)
         {
             var eventData = DynamicToObject<BlobCreatedData>(@event.Data);
-            var url = new Uri(eventData.Url);
-            var localPath = url.LocalPath;
-            var fileName = Path.GetFileName(localPath);
-            var folderPath = Path.GetDirectoryName(localPath).Split(Path.DirectorySeparatorChar);
-            
-            var fileStream = string.Empty;
-            var directoryPath = string.Empty;
 
-
-            foreach (var item in folderPath)
+            if (eventData.ContentLength > 0)
             {
-                if (String.IsNullOrEmpty(item)) continue;
-                if (string.IsNullOrEmpty(fileStream))
+                var url = new Uri(eventData.Url);
+                var localPath = url.LocalPath;
+                var fileName = Path.GetFileName(localPath);
+                var folderPath = Path.GetDirectoryName(localPath).Split(Path.DirectorySeparatorChar);
+
+                var fileStream = string.Empty;
+                var directoryPath = string.Empty;
+
+
+                foreach (var item in folderPath)
                 {
-                    fileStream = item;
-                    continue;
+                    if (String.IsNullOrEmpty(item)) continue;
+                    if (string.IsNullOrEmpty(fileStream))
+                    {
+                        fileStream = item;
+                        continue;
+                    }
+                    directoryPath = Path.Combine(directoryPath, item);
                 }
-                directoryPath = Path.Combine(directoryPath, item);
+
+
+                var data = await _dataLakeServiceClientRepository.DownloadJsonData(fileStream, directoryPath, fileName);
+
+                //do something
+
+                var id = "out_product" + "_" + Guid.NewGuid().ToString();
+                await _dataLakeServiceClientRepository.UploadJsonData("outputfs", "output", data.ToString(), id);
             }
-
-
-            var data = await _dataLakeServiceClientRepository.DownloadJsonData(fileStream, directoryPath, fileName);
-
-            //do something
-
-            var id = "out_product" + "_" + Guid.NewGuid().ToString();
-            await _dataLakeServiceClientRepository.UploadJsonData("outputfs", "output", data.ToString(), id);
 
         }
 
-        public async Task HandleEventSubscriptionValidation(EventGridTopic @event)
+        public async Task<string> HandleEventSubscriptionValidation(EventGridTopic @event)
         {
-             await Task.Run(() =>
+           return  await Task.Run(() =>
                     {
                         var eventData = DynamicToObject<SubscriptionValidationEventData>(@event.Data);
                         dynamic eventResponse = new System.Dynamic.ExpandoObject();
                         eventResponse.validationResponse = eventData.ValidationCode;
+                        return JsonConvert.SerializeObject(eventResponse);
 
 
                     });

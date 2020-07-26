@@ -29,7 +29,7 @@ namespace Poc_PIM_ADLS
         public string RequestId { get; set; }
         public string ETag { get; set; }
         public string ContentType { get; set; }
-        public string ContentLength { get; set; }
+        public int ContentLength { get; set; }
         public string BlobType { get; set; }
         public string Url { get; set; }
         public string Sequencer { get; set; }   
